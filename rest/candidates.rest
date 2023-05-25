@@ -1,0 +1,18 @@
+
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+
+GET {{host}}/candidates
+
+
+###
+POST {{host}}/candidates
+Content-Type: application/json
+
+{
+ "nombre": "PACO",
+  "email": "asasLawdwdaw234@example.com",
+  "password": "123454554wdw"
+ }
+
