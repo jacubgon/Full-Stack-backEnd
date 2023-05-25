@@ -12,10 +12,10 @@ POST {{host}}/companies
 Content-Type: application/json
 
 {
-    "nombre": "Paco Tech",
-"email": "pacotech@gmail.com",
-"contraseña": "pacotech",
-"ubicacion": "Madrid",
+    "nombre": "React Pride",
+"email": "reactpride@gmail.com",
+"contraseña": "reactpride",
+"ubicacion": "Valencia",
 "descripcion": "Consultora Tecnologica"
 
 }

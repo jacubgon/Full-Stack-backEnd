@@ -3,13 +3,15 @@ const mongoose = require("mongoose");
 const config = require("config");
 
 const candidates = require("./routes/candidates");
-const companies = require('./routes/companies')
+const companies = require('./routes/companies');
+const offers = require('./routes/offers');
 
 const app = express();
 
 app.use(express.json());
 app.use("/candidates", candidates);
-app.use("/companies", companies)
+app.use("/companies", companies);
+app.use("/offers", offers)
 
 const port = 3000;
 

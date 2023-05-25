@@ -1,0 +1,29 @@
+
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+
+### Obtener las ofertas
+GET {{host}}/offers
+
+### Crear una nueva oferta 
+POST {{host}}/offers
+Content-Type: application/json
+
+{
+  "empresaId": "646f8cd365dd847db795a3df",
+  "titulo": "Junior/Mid BackEnd para Paco Tech",
+  "descripcion": "Paco Tech busca un Junior/Mid BackEnd con poca experiencia en React de 4 años",
+  "requisitos": "React"
+}
+
+### Modificar una Oferta
+PUT {{host}}/offers/646f9bac1618387a63bbcfa3
+Content-Type: application/json
+
+{
+   "titulo": "ACTUALIZADA HOY!! Junior Full Stack para React Pride",
+   "descripcion": "React Pride busca un Full Stack con poca experiencia en React y Mongoose",
+  "requisitos": "React"
+}
+
