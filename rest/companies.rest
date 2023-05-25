@@ -1,0 +1,25 @@
+
+@hostname = http://localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+
+### Obtener las empresas
+GET {{host}}/companies
+
+### Crear una nueva empresa
+
+POST {{host}}/companies
+Content-Type: application/json
+
+{
+    "nombre": "Paco Tech",
+"email": "pacotech@gmail.com",
+"contraseña": "pacotech",
+"ubicacion": "Madrid",
+"descripcion": "Consultora Tecnologica"
+
+}
+
+### Obtener empresa por ID
+
+GET {{host}}/companies/646f8cd365dd847db795a3df

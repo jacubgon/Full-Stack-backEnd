@@ -2,12 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
 
-const candidates = require("./routes/candidatesRoute");
+const candidates = require("./routes/candidates");
+const companies = require('./routes/companies')
 
 const app = express();
 
 app.use(express.json());
 app.use("/candidates", candidates);
+app.use("/companies", companies)
 
 const port = 3000;
 

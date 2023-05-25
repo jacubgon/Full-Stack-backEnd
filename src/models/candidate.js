@@ -6,11 +6,11 @@ const candidateSchema = new mongoose.Schema({
   password: { type: String, required: true },
   habilidades: {
     type: String,
-    // required: true
+    required: true,
   },
   ubicacion: {
     type: String,
-    // required: true
+    required: true
   },
   educacion: {
     type: String,
@@ -38,7 +38,7 @@ const candidateSchema = new mongoose.Schema({
       },
       estado: {
         type: String,
-        // state: ['pendiente', 'entrevista', 'rechazado', 'aceptado']
+        state: ['pendiente', 'entrevista', 'rechazado', 'aceptado']
       },
     },
   ],

@@ -11,8 +11,14 @@ POST {{host}}/candidates
 Content-Type: application/json
 
 {
- "nombre": "PACO",
-  "email": "asasLawdwdaw234@example.com",
-  "password": "123454554wdw"
+ "nombre": "Benjy",
+  "email": "benjy@example.com",
+  "password": "1234545",
+  "habilidades": "React",
+  "ubicacion": "Sevilla",
+  "educacion": "Bootcamp Full Stack",
+  "experiencia": "4 años Junior Frontend "
  }
 
+###
+GET {{host}}/candidates/646f81f07ab99045006a5a3e

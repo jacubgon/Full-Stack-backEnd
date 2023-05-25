@@ -29,40 +29,30 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+// Obtener un candidato por su ID
+router.get('/:id', getCandidate, (req, res) => {
+  res.json(res.candidate);
+});
+
+
+async function getCandidate(req, res, next) {
+  let candidate;
+  try {
+    candidate = await Candidate.findById(req.params.id);
+    if (candidate == null) {
+      return res.status(404).json({ message: 'Candidato no encontrado' });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.candidate = candidate;
+  next();
+}
+
 module.exports = router;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// // Obtener un candidato por su ID
-// router.get('/candidates/:id', getCandidate, (req, res) => {
-//   res.json(res.candidate);
-// });
-
-
-// async function getCandidate(req, res, next) {
-//   let candidate;
-//   try {
-//     candidate = await Candidate.findById(req.params.id);
-//     if (candidate == null) {
-//       return res.status(404).json({ message: 'Candidato no encontrado' });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-
-//   res.candidate = candidate;
-//   next();
-// }
 
 
