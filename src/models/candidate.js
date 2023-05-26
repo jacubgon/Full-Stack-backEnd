@@ -1,16 +1,26 @@
 const mongoose = require("mongoose");
 
 const candidateSchema = new mongoose.Schema({
-  nombre: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  nombre: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   habilidades: {
     type: String,
     required: true,
   },
   ubicacion: {
     type: String,
-    required: true
+    required: true,
   },
   educacion: {
     type: String,
@@ -18,6 +28,15 @@ const candidateSchema = new mongoose.Schema({
   experiencia: {
     type: String,
   },
+  likes: [
+    {
+      oferta: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Offer",
+      },
+    },
+  ],
+
   matches: [
     {
       oferta: {
@@ -38,7 +57,7 @@ const candidateSchema = new mongoose.Schema({
       },
       estado: {
         type: String,
-        state: ['pendiente', 'entrevista', 'rechazado', 'aceptado']
+        state: ["pendiente", "entrevista", "rechazado", "aceptado"],
       },
     },
   ],

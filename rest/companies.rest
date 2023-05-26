@@ -12,14 +12,14 @@ POST {{host}}/companies
 Content-Type: application/json
 
 {
-    "nombre": "React Pride",
-"email": "reactpride@gmail.com",
-"contraseña": "reactpride",
-"ubicacion": "Valencia",
-"descripcion": "Consultora Tecnologica"
+    "nombre": "The Bridge",
+"email": "thebridge@gmail.com",
+"contraseña": "thebridge",
+"ubicacion": "Madrid",
+"descripcion": "Aceleradora de Talento y Tecnologica"
 
 }
 
 ### Obtener empresa por ID
 
-GET {{host}}/companies/646f8cd365dd847db795a3df
+GET {{host}}/companies/64709ca89180fd76a9a2efbd

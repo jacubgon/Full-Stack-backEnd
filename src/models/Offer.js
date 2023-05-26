@@ -30,6 +30,9 @@ const offerSchema = new mongoose.Schema({
       type: String,
       state: ['aplicado', 'interesado'],
       default: 'aplicado'
+    }, 
+    descartes:{
+      
     }
   }]
 });

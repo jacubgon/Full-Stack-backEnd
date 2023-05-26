@@ -11,19 +11,23 @@ POST {{host}}/offers
 Content-Type: application/json
 
 {
-  "empresaId": "646f8cd365dd847db795a3df",
-  "titulo": "Junior/Mid BackEnd para Paco Tech",
-  "descripcion": "Paco Tech busca un Junior/Mid BackEnd con poca experiencia en React de 4 años",
-  "requisitos": "React"
+  "empresaId": "64709ca89180fd76a9a2efbd",
+  "titulo": "Teacher Assistant Data Science",
+  "descripcion": "Teacher Assistant en The Bridge para el Bootcamp Data Science",
+  "requisitos": "Titulación Data Science en The Bridge"
 }
 
 ### Modificar una Oferta
-PUT {{host}}/offers/646f9bac1618387a63bbcfa3
+PUT {{host}}/offers/64709d2d9180fd76a9a2efc7
 Content-Type: application/json
 
 {
-   "titulo": "ACTUALIZADA HOY!! Junior Full Stack para React Pride",
-   "descripcion": "React Pride busca un Full Stack con poca experiencia en React y Mongoose",
-  "requisitos": "React"
+    "empresaId": "64709ca89180fd76a9a2efbd",
+  "titulo": "URGENTE! Teacher Assistant Data Science",
+  "descripcion": "Teacher Assistant en The Bridge para el Bootcamp Data Science",
+  "requisitos": "Titulación Data Science en The Bridge"
+
 }
 
+### Eliminar una Oferta
+DELETE {{host}}/offers/

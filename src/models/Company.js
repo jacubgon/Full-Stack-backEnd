@@ -18,9 +18,22 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  matches: [
+    {
+      oferta: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Offer",
+      },
+      fecha: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   descripcion: {
     type: String
   },
+  
   ofertas: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Offer'

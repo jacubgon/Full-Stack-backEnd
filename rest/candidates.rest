@@ -6,19 +6,30 @@
 GET {{host}}/candidates
 
 
-###
+### Crear un nuevo Candidato
 POST {{host}}/candidates
 Content-Type: application/json
 
 {
- "nombre": "Benjy",
-  "email": "benjy@example.com",
+ "nombre": "Javi",
+  "email": "javi@example.com",
   "password": "1234545",
-  "habilidades": "React",
+  "habilidades": "SQL",
   "ubicacion": "Sevilla",
   "educacion": "Bootcamp Full Stack",
-  "experiencia": "4 años Junior Frontend "
+  "experiencia": "1 año Junior Backend "
  }
 
-###
-GET {{host}}/candidates/646f81f07ab99045006a5a3e
+
+### Obtener un candidato por ID
+GET {{host}}/candidates/64709c1c9180fd76a9a2efa9
+
+
+
+### Dar like a una oferta
+POST {{host}}/candidates/64709c1c9180fd76a9a2efa9/likes/646f9784884e99616d54b714
+
+
+
+### Ver todas las ofertas de un candidato
+GET {{host}}/candidates/647099205606c749a80c22cd/offers
