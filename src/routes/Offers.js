@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Offer = require("../models/offer");
 const Company = require("../models/company");
+const Candidate = require('../models/candidate')
 
 router.get("/", async (req, res) => {
   try {
@@ -64,5 +65,22 @@ router.put('/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+//Ver los candidatos de una oferta
+router.get("/:offerId/candidates", async (req, res) => {
+  try {
+    const { offerId } = req.params;
+    const candidatesByOffer = await Offer.findById(offerId)
+    .populate("candidatos")
+  
+
+    res.json(candidatesByOffer.candidatos);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+//Eliminar una oferta
 
 module.exports = router;

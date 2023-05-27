@@ -18,7 +18,6 @@ router.get("/", async (req, res) => {
 // Crear un nuevo candidato (FUNCIONA)
 router.post("/", async (req, res) => {
   const candidate = new Candidate(req.body);
-  console.log(req.body);
   try {
     const newCandidate = await candidate.save();
     res.status(201).json(newCandidate);
@@ -47,7 +46,7 @@ async function getCandidate(req, res, next) {
   next();
 }
 
-// Guardar una oferta en el array de likes del candidato (FUNCIONA)
+// Dar likes a una oferta del candidato (FUNCIONA)
 router.post("/:candidateId/likes/:offerId", async (req, res) => {
   const { candidateId, offerId } = req.params;
   try {
@@ -80,7 +79,7 @@ router.post("/:candidateId/likes/:offerId", async (req, res) => {
   }
 });
 
-// Obtener las ofertas aplicadas por un candidato
+// Obtener las ofertas aplicadas por un candidato (NO FUCIONA)
 router.get("/:candidateId/offers", async (req, res) => {
   const { candidateId } = req.params;
 

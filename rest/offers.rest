@@ -31,3 +31,6 @@ Content-Type: application/json
 
 ### Eliminar una Oferta
 DELETE {{host}}/offers/
+
+### Ver los candidatos de una oferta
+GET {{host}}/offers/646f9784884e99616d54b714/candidates

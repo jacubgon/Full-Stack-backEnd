@@ -22,12 +22,12 @@ Content-Type: application/json
 
 
 ### Obtener un candidato por ID
-GET {{host}}/candidates/64709c1c9180fd76a9a2efa9
+GET {{host}}/candidates/647099205606c749a80c22cd
 
 
 
 ### Dar like a una oferta
-POST {{host}}/candidates/64709c1c9180fd76a9a2efa9/likes/646f9784884e99616d54b714
+POST {{host}}/candidates/64709c1c9180fd76a9a2efa9/likes/646fa60fae7df8187024170b
 
 
 

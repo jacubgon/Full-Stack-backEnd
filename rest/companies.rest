@@ -21,5 +21,7 @@ Content-Type: application/json
 }
 
 ### Obtener empresa por ID
-
 GET {{host}}/companies/64709ca89180fd76a9a2efbd
+
+### Ver Ofertas de una empresa
+GET {{host}}/companies/64709ca89180fd76a9a2efbd/offers
