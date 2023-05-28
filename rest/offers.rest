@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
   "empresaId": "64709ca89180fd76a9a2efbd",
-  "titulo": "Teacher Assistant Data Science",
+  "titulo": "OFERTA PARA ELIMINAR",
   "descripcion": "Teacher Assistant en The Bridge para el Bootcamp Data Science",
   "requisitos": "Titulación Data Science en The Bridge"
 }
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### Eliminar una Oferta
-DELETE {{host}}/offers/
+DELETE {{host}}/offers/647320cd63998b0d72dc7695
 
 ### Ver los candidatos de una oferta
 GET {{host}}/offers/646f9784884e99616d54b714/candidates

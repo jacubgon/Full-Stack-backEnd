@@ -3,8 +3,9 @@ const router = express.Router();
 
 const Offer = require("../models/offer");
 const Company = require("../models/company");
-const Candidate = require('../models/candidate')
+const Candidate = require("../models/candidate");
 
+// Obtener todas las ofertas (FUNCIONA)
 router.get("/", async (req, res) => {
   try {
     console.log("estoy entrando en ofertas");
@@ -16,12 +17,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-// Crear una nueva oferta
+// Crear una nueva oferta  (FUNCIONA)
 router.post("/", async (req, res) => {
   const { empresaId, titulo, descripcion, requisitos } = req.body;
   try {
-
     const company = await Company.findById(empresaId);
     if (!company) {
       return res.status(404).json({ message: "Compañía no encontrada" });
@@ -38,21 +37,20 @@ router.post("/", async (req, res) => {
     company.ofertas.push(savedOffer);
     await company.save();
     res.status(200).json(savedOffer);
-
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-// Actualizar una oferta
-router.put('/:id', async (req, res) => {
+// Actualizar una oferta (FUNCIONA)
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { titulo, descripcion, requisitos } = req.body;
 
   try {
     const offer = await Offer.findById(id);
     if (!offer) {
-      return res.status(404).json({ message: 'Oferta no encontrada' });
+      return res.status(404).json({ message: "Oferta no encontrada" });
     }
 
     offer.titulo = titulo;
@@ -66,21 +64,32 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-//Ver los candidatos de una oferta
+//Ver los candidatos de una oferta (FUNCIONA)
 router.get("/:offerId/candidates", async (req, res) => {
   try {
     const { offerId } = req.params;
     const candidatesByOffer = await Offer.findById(offerId)
-    .populate("candidatos")
-  
+    .populate("candidatos");
 
     res.json(candidatesByOffer.candidatos);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-//Eliminar una oferta
+//Eliminar una oferta (FUNCIONA)
+router.delete("/:offerId", async (req, res) => {
+  try {
+    const { offerId } = req.params;
+    const deletedOffer = await Offer.findByIdAndRemove(offerId);
+    if (!deletedOffer) {
+      return res.status(404).json({ message: "Oferta no encontrada" });
+    }
+    res.json({ message: "Oferta eliminada correctamente" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;
