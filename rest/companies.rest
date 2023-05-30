@@ -20,9 +20,9 @@ POST {{host}}/companies
 Content-Type: application/json
 
 {
-"nombre": "CoreNetwork",
-"email": "corenetwork@gmail.com",
-"password": "corenetwork",
+"nombre": "Mi empresa Tech",
+"email": "tech@gmail.com",
+"password": "tech",
 "ubicacion": "Madrid",
 "descripcion": "Aceleradora de Talento y Tecnologica"
 

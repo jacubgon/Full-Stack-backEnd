@@ -8,13 +8,13 @@ const isCandidate = require("../middlewares/isCandidate");
 const isCompany = require("../middlewares/isCompany");
 
 // Obtener todos los candidatos (FUNCIONA)
-router.get("/", isAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     console.log("estoy entrando en candidatos");
     const candidates = await Candidate.find();
     res.json(candidates);
   } catch (error) {
-    console.log("estoy dando un error");
+    console.log("estoy dando un error al obtener los candidatos");
     res.status(500).json({ message: error.message });
   }
 });
