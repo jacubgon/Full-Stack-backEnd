@@ -6,15 +6,23 @@
 ### Obtener las empresas
 GET {{host}}/companies
 
-### Crear una nueva empresa
+### Login Company
+POST {{host}}/companies/signin 
+Content-Type: application/json
 
+{
+  "email": "corenetwork@gmail.com",
+  "password": "corenetwork"
+}
+
+### Registrar una nueva empresa
 POST {{host}}/companies
 Content-Type: application/json
 
 {
-    "nombre": "The Bridge",
-"email": "thebridge@gmail.com",
-"contraseña": "thebridge",
+"nombre": "CoreNetwork",
+"email": "corenetwork@gmail.com",
+"password": "corenetwork",
 "ubicacion": "Madrid",
 "descripcion": "Aceleradora de Talento y Tecnologica"
 
@@ -25,3 +33,6 @@ GET {{host}}/companies/64709ca89180fd76a9a2efbd
 
 ### Ver Ofertas de una empresa
 GET {{host}}/companies/64709ca89180fd76a9a2efbd/offers
+
+### DAR LIKE A UN CANDIDATO
+POST {{host}}/companies/646f9a78fda05c68043a5866/like/64709c1c9180fd76a9a2efa9

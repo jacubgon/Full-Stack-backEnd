@@ -91,5 +91,80 @@ router.delete("/:offerId", async (req, res) => {
   }
 });
 
+//MATCH!!!!
+// Comprobar si hay un match entre empresa y candidato
+router.post("/check-match", async (req, res) => {
+  try {
+    const { candidateId, offerId } = req.body;
+
+    // Verificar si el candidato y la oferta existen
+    const candidato = await Candidate.findById(candidateId);
+    const oferta = await Offer.findById(offerId);
+    if (!candidato || !oferta) {
+      return res.status(404).json({ message: "Candidato u oferta no encontrados" });
+    }
+
+    // Verificar si el candidato ha dado like a la oferta y la empresa ha dado like al candidato
+    const candidatoLiked = candidato.likes.some(like => like.oferta === offerId);
+    const empresaLiked = oferta.likes.some(like => like.candidato=== candidateId);
+
+    if (candidatoLiked && empresaLiked) {
+      candidato.matches.push({ oferta: offerId });
+      oferta.matches.push({ candidato: candidateId });
+
+      await candidato.save();
+      await oferta.save();
+
+      return res.json({ message: "Match establecido" });
+    }
+
+    res.json({ message: "No hay match" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
+// // MATCH entre empresa y candidato
+// router.post("/match", async (req, res) => {
+//   try {
+//     const { candidateId, offerId } = req.body;
+
+//     // Comprobar si el candidato y la oferta existen
+//     const candidato = await Candidate.findById(candidateId);
+//     const oferta = await Offer.findById(offerId);
+//     console.log(oferta)
+//     if (!candidato || !oferta) {
+//       return res.status(404).json({ message: "Candidato u oferta no encontrados" });
+//     }
+
+//     // Comprobar si el candidato ya ha dado like a la oferta
+//     const candidatoLiked = candidato.likes.some(like => like.oferta.toString() === offerId);
+//     if (candidatoLiked) {
+//       return res.status(400).json({ message: "El candidato ya ha dado like a esta oferta" });
+//     }
+
+//     // Verificar si la empresa ya ha dado like al candidato
+//     const empresaLiked = oferta.likes.some(like => like.candidato.toString() === candidateId);
+//     if (empresaLiked) {
+//       // Establecer el match
+//       candidato.matches.push({ oferta: offerId });
+//       oferta.matches.push({ candidato: candidateId });
+//       await candidato.save();
+//       await oferta.save();
+//       return res.json({ message: "Match establecido" });
+//     }
+
+//     // Si no se ha establecido el match, simplemente agregar el like del candidato a la oferta
+//     oferta.likes.push({ candidato: candidateId });
+//     await oferta.save();
+//     res.json({ message: "Like agregado correctamente" });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+
 
 module.exports = router;

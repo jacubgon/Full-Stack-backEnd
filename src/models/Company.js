@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
+const pick = require("lodash/pick");
+const config = require("config");
 
 const companySchema = new mongoose.Schema({
   nombre: {
@@ -10,7 +13,7 @@ const companySchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  contraseña: {
+  password: {
     type: String,
     required: true
   },
@@ -18,6 +21,15 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  role: String,
+  likes: [
+    {
+      oferta: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Offer",
+      },
+    },
+  ],
   matches: [
     {
       oferta: {
@@ -39,6 +51,13 @@ const companySchema = new mongoose.Schema({
     ref: 'Offer'
   }]
 });
+
+companySchema.methods.generateJWT = function () {
+  return jwt.sign(
+    pick(this, ['email','role']),
+    config.get("private_key")
+  )
+}
 
 const Company = mongoose.model('Company', companySchema);
 

@@ -2,9 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Candidate = require("../models/candidate");
 const Offer = require("../models/offer");
+const bcrypt = require("bcrypt");
+const isAuth = require("../middlewares/isAuth");
+const isCandidate = require("../middlewares/isCandidate");
+const isCompany = require("../middlewares/isCompany");
 
 // Obtener todos los candidatos (FUNCIONA)
-router.get("/", async (req, res) => {
+router.get("/", isAuth, async (req, res) => {
   try {
     console.log("estoy entrando en candidatos");
     const candidates = await Candidate.find();
@@ -15,19 +19,45 @@ router.get("/", async (req, res) => {
   }
 });
 
+// LOGIN Candidate
+router.post('/signin', async (req, res) => {
+  const { email, password: passwordPlainText } = req.body
+
+  try {
+    const candidate = await Candidate.findOne({ email })
+    if (!candidate) {
+      return res.status(401).json({ message: 'Usuario o contraseña incorrecta' })
+    }
+    const isCandidate = await bcrypt.compare(passwordPlainText, candidate.password)
+    if (!isCandidate) {
+      return res.status(401).json({ message: 'Usuario o contraseña incorrecta' })
+    }
+    const token = candidate.generateJWT()
+    res.setHeader('x-auth-token', token).json({ message: 'Inicio de sesión exitoso' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Error en el inicio de sesión' })
+  }
+})
+
 // Crear un nuevo candidato (FUNCIONA)
 router.post("/", async (req, res) => {
-  const candidate = new Candidate(req.body);
+  const { email, password: passwordPlainText } = req.body
+
   try {
-    const newCandidate = await candidate.save();
-    res.status(201).json(newCandidate);
+    const salt = await bcrypt.genSalt(10)
+    const password = await bcrypt.hash(passwordPlainText, salt)
+    const newCandidate = await Candidate.create({...req.body, password, role: "candidate" })
+    const token = newCandidate.generateJWT()
+    res.setHeader('x-auth-token', token).json(newCandidate)
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error(error)
+    res.status(500).json({ message: 'Error al registrar el usuario' })
   }
 });
 
 // Obtener un candidato por su ID (FUNCIONA)
-router.get("/:id", getCandidate, (req, res) => {
+router.get("/:id", isAuth,isCompany, getCandidate, (req, res) => {
   res.json(res.candidate);
 });
 
@@ -89,7 +119,6 @@ router.get("/:candidateId/offers", async (req, res) => {
     if (!candidate) {
       return res.status(404).json({ message: "Candidato no encontrado" });
     }
-
     // Obtener las ofertas aplicadas por el candidato
     const appliedOffers = await Offer.find({ candidatos: candidateId });
 

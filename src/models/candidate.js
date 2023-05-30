@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const pick = require("lodash/pick");
+const config = require("config");
 
 const candidateSchema = new mongoose.Schema({
   nombre: {
@@ -36,6 +39,7 @@ const candidateSchema = new mongoose.Schema({
       },
     },
   ],
+  role: String,
 
   matches: [
     {
@@ -62,6 +66,13 @@ const candidateSchema = new mongoose.Schema({
     },
   ],
 });
+
+candidateSchema.methods.generateJWT = function () {
+  return jwt.sign(
+    pick(this, ['email','role']),
+    config.get("private_key")
+  )
+}
 
 const Candidate = mongoose.model("Candidate", candidateSchema);
 

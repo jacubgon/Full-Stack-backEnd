@@ -30,7 +30,16 @@ Content-Type: application/json
 }
 
 ### Eliminar una Oferta
-DELETE {{host}}/offers/647320cd63998b0d72dc7695
+DELETE {{host}}/offers/64733d8ce34748a0cb4ba41a
 
 ### Ver los candidatos de una oferta
 GET {{host}}/offers/646f9784884e99616d54b714/candidates
+
+### MATCH
+POST {{host}}/offers/check-match
+Content-Type: application/json
+
+{
+  "candidateId": "64709c1c9180fd76a9a2efa9",
+  "offerId": "646f9784884e99616d54b714"
+}
