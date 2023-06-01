@@ -6,13 +6,16 @@
 ### Obtener las ofertas
 GET {{host}}/offers
 
+### Obtener oferta por ID
+GET {{host}}/offers/64787bd37eab64e9856930a3
+
 ### Crear una nueva oferta 
 POST {{host}}/offers
 Content-Type: application/json
 
 {
-  "empresaId": "64709ca89180fd76a9a2efbd",
-  "titulo": "OFERTA PARA ELIMINAR",
+  "empresaId": "647857cd5d253f995264556a",
+  "titulo": "OFERTA TECH 2 PARA ELIMINAR HOY",
   "descripcion": "Teacher Assistant en The Bridge para el Bootcamp Data Science",
   "requisitos": "Titulación Data Science en The Bridge"
 }

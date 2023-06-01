@@ -31,6 +31,7 @@ router.post('/signin', async (req, res) => {
       return res.status(401).json({ message: 'Usuario o contraseña incorrecta' })
     }
     const token = company.generateJWT()
+    res.setHeader('access-control-expose-headers', 'x-auth-token')
     res.setHeader('x-auth-token', token).json({ message: 'Inicio de sesión exitoso' })
   } catch (error) {
     console.error(error)
@@ -40,7 +41,7 @@ router.post('/signin', async (req, res) => {
 
 
 //CREAR NUEVA EMPRESA (FUNCIONA)
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { email, password: passwordPlainText } = req.body
 
   try {
@@ -48,6 +49,7 @@ router.post("/", async (req, res) => {
     const password = await bcrypt.hash(passwordPlainText, salt)
     const newCompany = await Company.create({...req.body, password, role: "company" })
     const token = newCompany.generateJWT()
+    res.setHeader('access-control-expose-headers', 'x-auth-token')
     res.setHeader('x-auth-token', token).json(newCompany)
   } catch (error) {
     console.error(error)
@@ -60,7 +62,6 @@ router.get("/:id", getCompany, (req, res) => {
   res.json(res.company);
 });
 
-// Middleware para obtener una empresa por su ID
 async function getCompany(req, res, next) {
   let company;
   try {
@@ -93,20 +94,17 @@ router.post("/:companyId/like/:candidateId", async (req, res) => {
   try {
     const { companyId, candidateId } = req.params;
 
-    // Verificar si la empresa y el candidato existen
     const empresa = await Company.findById(companyId);
     const candidato = await Candidate.findById(candidateId);
     if (!empresa || !candidato) {
       return res.status(404).json({ message: "Empresa o candidato no encontrado" });
     }
-console.log(empresa.likes)
-    // // Verificar si la empresa ya ha dado like al candidato
+
     const empresaLiked = empresa.likes.some(like => like.candidato.toString() === candidateId);
     if (empresaLiked) {
       return res.status(400).json({ message: "La empresa ya ha dado like a este candidato" });
     }
 
-    // Agregar el like de la empresa al candidato
     candidato.likes.push({ empresa: companyId });
     await candidato.save();
     empresa.likes.push({ candidato: candidateId });

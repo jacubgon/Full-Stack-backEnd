@@ -54,7 +54,7 @@ const companySchema = new mongoose.Schema({
 
 companySchema.methods.generateJWT = function () {
   return jwt.sign(
-    pick(this, ['email','role']),
+    pick(this, ['email','role', '_id']),
     config.get("private_key")
   )
 }

@@ -4,6 +4,8 @@ const router = express.Router();
 const Offer = require("../models/offer");
 const Company = require("../models/company");
 const Candidate = require("../models/candidate");
+const isAuth = require("../middlewares/isAuth");
+const isCompany = require("../middlewares/isCompany");
 
 // Obtener todas las ofertas (FUNCIONA)
 router.get("/", async (req, res) => {
@@ -18,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 // Crear una nueva oferta  (FUNCIONA)
-router.post("/", async (req, res) => {
+router.post("/", isAuth, isCompany, async (req, res) => {
   const { empresaId, titulo, descripcion, requisitos } = req.body;
   try {
     const company = await Company.findById(empresaId);
@@ -39,6 +41,24 @@ router.post("/", async (req, res) => {
     res.status(200).json(savedOffer);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+// Obtener una oferta por su id (FUNCIONA)
+
+router.get("/:id", async (req, res) => {
+  const offerId = req.params.id;
+
+  try {
+    const offer = await Offer.findById(offerId)
+      .populate("empresa")
+      .populate("candidatos.candidato");
+    if (!offer) {
+      return res.status(404).json({ error: "Oferta no encontrada" });
+    }
+    res.json(offer);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener la oferta" });
   }
 });
 
@@ -68,8 +88,9 @@ router.put("/:id", async (req, res) => {
 router.get("/:offerId/candidates", async (req, res) => {
   try {
     const { offerId } = req.params;
-    const candidatesByOffer = await Offer.findById(offerId)
-    .populate("candidatos");
+    const candidatesByOffer = await Offer.findById(offerId).populate(
+      "candidatos"
+    );
 
     res.json(candidatesByOffer.candidatos);
   } catch (error) {
@@ -101,12 +122,18 @@ router.post("/check-match", async (req, res) => {
     const candidato = await Candidate.findById(candidateId);
     const oferta = await Offer.findById(offerId);
     if (!candidato || !oferta) {
-      return res.status(404).json({ message: "Candidato u oferta no encontrados" });
+      return res
+        .status(404)
+        .json({ message: "Candidato u oferta no encontrados" });
     }
 
     // Verificar si el candidato ha dado like a la oferta y la empresa ha dado like al candidato
-    const candidatoLiked = candidato.likes.some(like => like.oferta === offerId);
-    const empresaLiked = oferta.likes.some(like => like.candidato=== candidateId);
+    const candidatoLiked = candidato.likes.some(
+      (like) => like.oferta === offerId
+    );
+    const empresaLiked = oferta.likes.some(
+      (like) => like.candidato === candidateId
+    );
 
     if (candidatoLiked && empresaLiked) {
       candidato.matches.push({ oferta: offerId });
@@ -123,8 +150,6 @@ router.post("/check-match", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-
 
 // // MATCH entre empresa y candidato
 // router.post("/match", async (req, res) => {
@@ -164,7 +189,5 @@ router.post("/check-match", async (req, res) => {
 //     res.status(500).json({ message: error.message });
 //   }
 // });
-
-
 
 module.exports = router;

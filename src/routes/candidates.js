@@ -8,7 +8,7 @@ const isCandidate = require("../middlewares/isCandidate");
 const isCompany = require("../middlewares/isCompany");
 
 // Obtener todos los candidatos (FUNCIONA)
-router.get("/",isAuth, isCompany ,async (req, res) => {
+router.get("/",async (req, res) => {
   try {
     console.log("estoy entrando en candidatos");
     const candidates = await Candidate.find();

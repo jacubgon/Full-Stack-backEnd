@@ -11,8 +11,8 @@ POST {{host}}/companies/signin
 Content-Type: application/json
 
 {
-  "email": "corenetwork@gmail.com",
-  "password": "corenetwork"
+  "email": "tech2@gmail.com",
+  "password": "tech2"
 }
 
 ### Registrar una nueva empresa
@@ -20,9 +20,9 @@ POST {{host}}/companies
 Content-Type: application/json
 
 {
-"nombre": "Mi empresa Tech",
-"email": "tech@gmail.com",
-"password": "tech",
+"nombre": "Mi empresa Tech2",
+"email": "tech2@gmail.com",
+"password": "tech2",
 "ubicacion": "Madrid",
 "descripcion": "Aceleradora de Talento y Tecnologica"
 
@@ -35,4 +35,4 @@ GET {{host}}/companies/64709ca89180fd76a9a2efbd
 GET {{host}}/companies/64709ca89180fd76a9a2efbd/offers
 
 ### DAR LIKE A UN CANDIDATO
-POST {{host}}/companies/646f9a78fda05c68043a5866/like/64709c1c9180fd76a9a2efa9
+POST {{host}}/companies/6478b0d3418f164c3a5e85e2/like/647063abd36f952ad7ca170f
