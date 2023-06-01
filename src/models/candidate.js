@@ -6,7 +6,7 @@ const config = require("config");
 const candidateSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
@@ -19,11 +19,11 @@ const candidateSchema = new mongoose.Schema({
   },
   habilidades: {
     type: String,
-    required: true,
+    // required: true,
   },
   ubicacion: {
     type: String,
-    required: true,
+    // required: true,
   },
   educacion: {
     type: String,

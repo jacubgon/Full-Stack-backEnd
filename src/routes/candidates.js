@@ -8,7 +8,7 @@ const isCandidate = require("../middlewares/isCandidate");
 const isCompany = require("../middlewares/isCompany");
 
 // Obtener todos los candidatos (FUNCIONA)
-router.get("/", async (req, res) => {
+router.get("/",isAuth, isCompany ,async (req, res) => {
   try {
     console.log("estoy entrando en candidatos");
     const candidates = await Candidate.find();
@@ -33,6 +33,7 @@ router.post('/signin', async (req, res) => {
       return res.status(401).json({ message: 'Usuario o contraseña incorrecta' })
     }
     const token = candidate.generateJWT()
+    res.setHeader('access-control-expose-headers', 'x-auth-token')
     res.setHeader('x-auth-token', token).json({ message: 'Inicio de sesión exitoso' })
   } catch (error) {
     console.error(error)
@@ -41,7 +42,7 @@ router.post('/signin', async (req, res) => {
 })
 
 // Crear un nuevo candidato (FUNCIONA)
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { email, password: passwordPlainText } = req.body
 
   try {
@@ -49,6 +50,7 @@ router.post("/", async (req, res) => {
     const password = await bcrypt.hash(passwordPlainText, salt)
     const newCandidate = await Candidate.create({...req.body, password, role: "candidate" })
     const token = newCandidate.generateJWT()
+    res.setHeader('access-control-expose-headers', 'x-auth-token')
     res.setHeader('x-auth-token', token).json(newCandidate)
   } catch (error) {
     console.error(error)
@@ -57,7 +59,7 @@ router.post("/", async (req, res) => {
 });
 
 // Obtener un candidato por su ID (FUNCIONA)
-router.get("/:id", isAuth,isCompany, getCandidate, (req, res) => {
+router.get("/:id", getCandidate, (req, res) => {
   res.json(res.candidate);
 });
 

@@ -11,17 +11,17 @@ POST {{host}}/candidates/signin
 Content-Type: application/json
 
 {
-  "email": "joseluis@example.com",
+  "email": "joseluisperez@example.com",
   "password": "123454523"
 }
 
 ### Crear un nuevo Candidato
-POST {{host}}/candidates
+POST {{host}}/candidates/signup
 Content-Type: application/json
 
 {
- "nombre": "Jose Luis",
-  "email": "joseluis@example.com",
+ "nombre": "Jose Luis Perez",
+  "email": "joseluisperez@example.com",
   "password": "123454523",
   "habilidades": "SQL",
   "ubicacion": "Sevilla",
