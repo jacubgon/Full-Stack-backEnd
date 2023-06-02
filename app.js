@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const config = require("config");
 const cors = require("cors");
 
-const candidates = require("./routes/candidates");
-const companies = require('./routes/companies');
-const offers = require('./routes/offers');
+const candidates = require("./src/routes/candidates");
+const companies = require('./src/routes/companies');
+const offers = require('./src/routes/offers');
 
 const app = express();
 
