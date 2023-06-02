@@ -1,3 +1,4 @@
 {
-    "private_key": "private_key"
+    "private_key": "private_key",
+    "MONGO_URI" : "MONGO_URI"
 }

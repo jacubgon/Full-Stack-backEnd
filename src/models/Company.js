@@ -49,7 +49,8 @@ const companySchema = new mongoose.Schema({
   ofertas: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Offer'
-  }]
+  }],
+  descartes: []
 });
 
 companySchema.methods.generateJWT = function () {

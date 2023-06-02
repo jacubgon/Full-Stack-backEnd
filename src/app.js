@@ -22,7 +22,7 @@ app.use("/offers", offers);
 const port = 3000;
 
 mongoose
-  .connect("mongodb://localhost:27017/Finder", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

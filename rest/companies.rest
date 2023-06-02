@@ -16,13 +16,13 @@ Content-Type: application/json
 }
 
 ### Registrar una nueva empresa
-POST {{host}}/companies
+POST {{host}}/companies/signup
 Content-Type: application/json
 
 {
-"nombre": "Mi empresa Tech2",
-"email": "tech2@gmail.com",
-"password": "tech2",
+"nombre": "hola",
+"email": "tech56@gmail.com",
+"password": "tech5",
 "ubicacion": "Madrid",
 "descripcion": "Aceleradora de Talento y Tecnologica"
 

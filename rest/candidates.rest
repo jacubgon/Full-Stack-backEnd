@@ -20,8 +20,8 @@ POST {{host}}/candidates/signup
 Content-Type: application/json
 
 {
- "nombre": "Jose Luis Perez",
-  "email": "joseluisperez@example.com",
+ "nombre": "Jose23 Luis Perez Perez",
+  "email": "jose23luisperezperez@example.com",
   "password": "123454523",
   "habilidades": "SQL",
   "ubicacion": "Sevilla",
